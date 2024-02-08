@@ -12,8 +12,8 @@ import (
 )
 
 // Options
-const torrentFolder = "/home/raoul/go/torlinks/"
-const showFolder = "/mnt/medias.1/Series/"
+// const torrentFolder = "./"
+// const showFolder = "/mnt/medias.1/Series/"
 
 // Variables
 var torrents []string
@@ -88,6 +88,9 @@ func createSymlink(f file, showFolder string) {
 }
 
 func main() {
+	torrentFolder := os.Args[1]
+	showFolder := os.Args[2]
+
 	torrents := find(torrentFolder, ".torrent")
 
 	for _, t := range torrents {
