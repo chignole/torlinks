@@ -5,7 +5,7 @@ Parse torrent files and keep seeding through symlinks.
 # Flags
 
 ```
--s folder containing torrent files tor process
--d folder containing tv shows
--m folder containing movies
+-s <string> folder containing torrent files tor process
+-d <string> folder containing tv shows
+-m <string> folder containing movies
 ```
