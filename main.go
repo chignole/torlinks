@@ -1,8 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/fs"
+	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -16,6 +18,8 @@ import (
 // const showFolder = "/mnt/medias.1/Series/"
 
 // Variables
+var torrentFolder string
+var showFolder string
 var torrents []string
 var files []string
 
@@ -76,7 +80,7 @@ func createSymlink(f file, showFolder string) {
 		if strings.Contains(a, f.showTitle) {
 			fileStats, err := os.Stat(a)
 			if err != nil {
-				return err
+				log.Fatalf("error while getting filestats : %v", err)
 			}
 			if fileStats.Size() == f.size {
 				// fmt.Println(f.path, "->", a)
@@ -88,11 +92,24 @@ func createSymlink(f file, showFolder string) {
 }
 
 func main() {
-	torrentFolder := os.Args[1]
-	showFolder := os.Args[2]
 
+	// Logging setup
+	f, err := os.OpenFile("torlinks.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
+	log.SetOutput(f)
+
+	// Parse flags configuration
+	flag.StringVar(&torrentFolder, "s", "./", "folder containing torrent files to process")
+	flag.StringVar(&showFolder, "d", "./", "folder containing media files")
+	flag.Parse()
+
+	// Search for torrent files in specified folder
 	torrents := find(torrentFolder, ".torrent")
 
+	// Parse every torrent file, then browse media folder and create symlinks
 	for _, t := range torrents {
 		fmt.Println("Processing : ", t)
 		filesToProcess := parse(t)
