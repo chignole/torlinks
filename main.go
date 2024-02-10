@@ -104,6 +104,7 @@ func createSymlink(f file, showFolder string) {
 			if fileStats.Size() == f.size {
 				// fmt.Println(f.path, "->", a)
 				os.Symlink(a, f.path)
+				log.Println("[PASS]", a, f.path)
 			}
 		}
 		return nil
