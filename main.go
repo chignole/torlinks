@@ -13,13 +13,10 @@ import (
 	"github.com/j-muller/go-torrent-parser"
 )
 
-// Options
-// const torrentFolder = "./"
-// const showFolder = "/mnt/medias.1/Series/"
-
 // Variables
 var torrentFolder string
 var showFolder string
+var movieFolder string
 var torrents []string
 var files []string
 
@@ -54,11 +51,15 @@ func parse(torrent string) []file {
 		fmt.Println(err)
 	} else {
 		for _, f := range a.Files {
+			var showTitle string = "none"
+			var showEpisode string = "none"
 			path := filepath.Join(f.Path...)
 			size := f.Length
 			re := showPattern.FindStringSubmatch(path)
-			showTitle := re[1]
-			showEpisode := re[2]
+			if len(re) > 1 {
+				showTitle = re[1]
+				showEpisode = re[2]
+			}
 			parsedFile := file{path, size, showTitle, showEpisode}
 			parsedFiles = append(parsedFiles, parsedFile)
 		}
@@ -68,16 +69,34 @@ func parse(torrent string) []file {
 
 // Browse a folder, looking for a specific file, and  creates a symlink to this file
 func createSymlink(f file, showFolder string) {
+	var mediaFolder string
 	checkFolder := regexp.MustCompile(`.*\/`)
 	folder := checkFolder.FindStringSubmatch(f.path)
 	if folder != nil {
 		os.Mkdir(folder[0], 0744)
 	}
-	filepath.WalkDir(showFolder, func(a string, d fs.DirEntry, e error) error {
+	if f.showTitle != "none" {
+		mediaFolder = showFolder
+	} else {
+		mediaFolder = movieFolder
+	}
+	filepath.WalkDir(mediaFolder, func(a string, d fs.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
-		if strings.Contains(a, f.showTitle) {
+		if mediaFolder == showFolder {
+			if strings.Contains(a, f.showTitle) {
+				fileStats, err := os.Stat(a)
+				if err != nil {
+					log.Fatalf("error while getting filestats : %v", err)
+				}
+				if fileStats.Size() == f.size {
+					// fmt.Println(f.path, "->", a)
+					os.Symlink(a, f.path)
+				}
+			}
+		}
+		if mediaFolder == movieFolder {
 			fileStats, err := os.Stat(a)
 			if err != nil {
 				log.Fatalf("error while getting filestats : %v", err)
@@ -103,7 +122,8 @@ func main() {
 
 	// Parse flags configuration
 	flag.StringVar(&torrentFolder, "s", "./", "folder containing torrent files to process")
-	flag.StringVar(&showFolder, "d", "./", "folder containing media files")
+	flag.StringVar(&showFolder, "d", "./", "folder containing tv show files")
+	flag.StringVar(&movieFolder, "m", "./", "folder containing movie files")
 	flag.Parse()
 
 	// Search for torrent files in specified folder
