@@ -13,6 +13,8 @@ import (
 	"github.com/j-muller/go-torrent-parser"
 )
 
+// TODO Dissociate failure and success in finding files for symlinks
+
 // Variables
 var torrentFolder string
 var showFolder string
@@ -68,13 +70,12 @@ func parse(torrent string) []file {
 }
 
 // Browse a folder, looking for a specific file, and  creates a symlink to this file
-func createSymlink(f file, showFolder string) {
+func createSymlink(f file, showFolder string) bool {
 	var mediaFolder string
+	var symLink bool = false
+	// Check for subfolder
 	checkFolder := regexp.MustCompile(`.*\/`)
 	folder := checkFolder.FindStringSubmatch(f.path)
-	if folder != nil {
-		os.Mkdir(folder[0], 0744)
-	}
 	if f.showTitle != "none" {
 		mediaFolder = showFolder
 	} else {
@@ -82,33 +83,43 @@ func createSymlink(f file, showFolder string) {
 	}
 	filepath.WalkDir(mediaFolder, func(a string, d fs.DirEntry, e error) error {
 		if e != nil {
-			return e
+			log.Fatalf("[ERROR] Error while browsing media directory : %v", e)
 		}
 		if mediaFolder == showFolder {
 			if strings.Contains(a, f.showTitle) {
 				fileStats, err := os.Stat(a)
 				if err != nil {
-					log.Fatalf("error while getting filestats : %v", err)
+					log.Fatalf("[ERROR] Error while getting filestats : %v", err)
 				}
 				if fileStats.Size() == f.size {
 					// fmt.Println(f.path, "->", a)
+					if folder != nil {
+						os.Mkdir(folder[0], 0744)
+					}
 					os.Symlink(a, f.path)
+					log.Println("[PASS]", a, f.path)
+					symLink = true
 				}
 			}
 		}
 		if mediaFolder == movieFolder {
 			fileStats, err := os.Stat(a)
 			if err != nil {
-				log.Fatalf("error while getting filestats : %v", err)
+				log.Fatalf("[ERROR] Error while getting filestats : %v", err)
 			}
 			if fileStats.Size() == f.size {
 				// fmt.Println(f.path, "->", a)
+				if folder != nil {
+					os.Mkdir(folder[0], 0744)
+				}
 				os.Symlink(a, f.path)
 				log.Println("[PASS]", a, f.path)
+				symLink = true
 			}
 		}
 		return nil
 	})
+	return symLink
 }
 
 func main() {
