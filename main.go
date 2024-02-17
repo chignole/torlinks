@@ -115,7 +115,12 @@ func createSymlink(f file, showFolder string) bool {
 
 // Processing configuration file
 func initConfig() configuration {
-	configFile, err := os.Open("./config/config.json")
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Panic(err)
+	}
+	file := homeDir + "/.config/torlinks/config.json"
+	configFile, err := os.Open(file)
 	if err != nil {
 		log.Fatalf("[ERROR] Error opening configuration file : %v", err)
 	}
@@ -144,7 +149,6 @@ func main() {
 
 	// Loading configuration file
 	loadConfig := initConfig()
-	fmt.Println(loadConfig.General.Movies)
 	torrentFolder = loadConfig.General.Source
 	movieFolder = loadConfig.General.Movies
 	showFolder = loadConfig.General.TvShows
