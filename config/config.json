@@ -1,0 +1,7 @@
+{
+  "general": {
+    "source": "./",
+    "tvshows": "/mnt/medias.1/Series/",
+    "movies": "/mnt/medias.2/Movies/"
+  }
+}
