@@ -30,6 +30,11 @@ type file struct {
 	showEpisode string
 }
 
+type torrent struct {
+	file   string
+	linked bool
+}
+
 type configuration struct {
 	General general `json:"general"`
 }
@@ -41,15 +46,18 @@ type general struct {
 	Movies      string `json:"movies"`
 }
 
-// Search for specific file extension in a directory - Returning an array of files
-func find(root, ext string) []string {
-	var a []string
+var loadConfig configuration
+
+// Search for specific file extension in a directory - Returning an array of torrent constructs
+func find(root, ext string) []torrent {
+	var a []torrent
 	filepath.WalkDir(root, func(s string, d fs.DirEntry, e error) error {
 		if e != nil {
 			log.Fatalf("[ERROR] Error while looking for torrent files : %v", e)
 		}
 		if filepath.Ext(d.Name()) == ext {
-			a = append(a, s)
+			t := torrent{s, false}
+			a = append(a, t)
 		}
 		return nil
 	})
@@ -59,6 +67,7 @@ func find(root, ext string) []string {
 // Parse a torrent - Returns an array of file structs
 func parse(torrent string) []file {
 	var parsedFiles []file
+	// TODO Modify regex so it can accept sXXeXX or SXXEXX
 	showPattern := regexp.MustCompile(`(.*)(?:\.S\d{2}.*)(S\d{2}E\d{2})`)
 	a, err := gotorrentparser.ParseFromFile(torrent)
 	if err != nil {
@@ -130,12 +139,22 @@ func initConfig() configuration {
 	if err != nil {
 		log.Panicf("[ERROR] Error processing configuration file : %v", err)
 	}
-	loadConfig := configuration{}
 	err = json.Unmarshal(config, &loadConfig)
 	if err != nil {
 		log.Panicf("[ERROR] Error processing configuration file : %v", err)
 	}
 	return loadConfig
+}
+
+func clean(t torrent) {
+	if t.linked == true {
+		n := loadConfig.General.Destination + t.file
+		defer os.Rename(t.file, n)
+	} else {
+		n := t.file + ".delete"
+		defer os.Rename(t.file, n)
+	}
+
 }
 
 // Main function
@@ -158,18 +177,22 @@ func main() {
 	torrents := find(torrentFolder, ".torrent")
 
 	// Parse every torrent file, then browse media folder and create symlinks
-	for _, t := range torrents {
-		fmt.Println("Processing : ", t)
-		filesToProcess := parse(t)
+	for i := range torrents {
+		fmt.Println("Processing :", torrents[i])
+		filesToProcess := parse(torrents[i].file)
 
 		for _, f := range filesToProcess {
 			fmt.Println("Processing :", f)
 			linkCreated := createSymlink(f, showFolder)
-			fmt.Println(linkCreated)
 			if linkCreated == true {
-				n := loadConfig.General.Destination + t
-				defer os.Rename(t, n)
+				torrents[i].linked = true
 			}
 		}
 	}
+
+	// Clean torrent files after processing
+	for _, t := range torrents {
+		clean(t)
+	}
+
 }
