@@ -35,9 +35,10 @@ type configuration struct {
 }
 
 type general struct {
-	Source  string `json:"source"`
-	TvShows string `json:"tvshows"`
-	Movies  string `json:"movies"`
+	Source      string `json:"source"`
+	Destination string `json:"destination"`
+	TvShows     string `json:"tvshows"`
+	Movies      string `json:"movies"`
 }
 
 // Search for specific file extension in a directory - Returning an array of files
@@ -163,7 +164,12 @@ func main() {
 
 		for _, f := range filesToProcess {
 			fmt.Println("Processing :", f)
-			createSymlink(f, showFolder)
+			linkCreated := createSymlink(f, showFolder)
+			fmt.Println(linkCreated)
+			if linkCreated == true {
+				n := loadConfig.General.Destination + t
+				defer os.Rename(t, n)
+			}
 		}
 	}
 }
