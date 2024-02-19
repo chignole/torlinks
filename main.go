@@ -68,7 +68,7 @@ func find(root, ext string) []torrent {
 func parse(torrent string) []file {
 	var parsedFiles []file
 	// TODO Modify regex so it can accept sXXeXX or SXXEXX
-	showPattern := regexp.MustCompile(`(.*)(?:\.S\d{2}.*)(S\d{2}E\d{2})`)
+	showPattern := regexp.MustCompile(`(.*)(?:\.(?:S|s)\d{2}.*)((?:S|s)\d{2}(?:E|e)\d{2})`)
 	a, err := gotorrentparser.ParseFromFile(torrent)
 	if err != nil {
 		log.Fatalf("[ERROR] Error while parsing torrent : %v", err)
