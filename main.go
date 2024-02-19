@@ -91,7 +91,7 @@ func parse(torrent string) []file {
 }
 
 // Browse a folder, looking for a specific file, and  creates a symlink to this file
-func createSymlink(f file, showFolder string) bool {
+func createSymlink(f file) bool {
 	var mediaFolder string
 	var symLink bool = false
 	// Check for subfolder
@@ -115,7 +115,8 @@ func createSymlink(f file, showFolder string) bool {
 				os.Mkdir(folder[0], 0744)
 			}
 			os.Symlink(a, f.path)
-			log.Println("[PASS]", a, f.path)
+			fmt.Println("[PASS]", f.path)
+			log.Println("[PASS]", f.path)
 			symLink = true
 		}
 		return nil
@@ -149,6 +150,8 @@ func initConfig() configuration {
 func clean(t torrent) {
 	if t.linked == true {
 		n := loadConfig.General.Destination + t.file
+		fmt.Println("[INFO] Moving", t.file, "to", loadConfig.General.Destination)
+		log.Println("[INFO] Moving", t.file, "to", loadConfig.General.Destination)
 		defer os.Rename(t.file, n)
 	} else {
 		n := t.file + ".delete"
@@ -178,12 +181,12 @@ func main() {
 
 	// Parse every torrent file, then browse media folder and create symlinks
 	for i := range torrents {
-		fmt.Println("Processing :", torrents[i])
+		fmt.Println("[INFO] Processing :", torrents[i].file)
 		filesToProcess := parse(torrents[i].file)
 
 		for _, f := range filesToProcess {
-			fmt.Println("Processing :", f)
-			linkCreated := createSymlink(f, showFolder)
+			fmt.Println("[INFO] Processing :", f)
+			linkCreated := createSymlink(f)
 			if linkCreated == true {
 				torrents[i].linked = true
 			}
