@@ -128,6 +128,10 @@ func createSymlink(file string, size int64, db *sql.DB) bool {
 
 	linked := false
 
+	if size < 2000000 {
+		fmt.Printf("[INFO] Skipping file %v. Size < 2MB\n", file)
+	}
+
 	stmt, err := db.Prepare("SELECT path, size FROM files where size =?")
 	if err != nil {
 		log.Fatal(err)
@@ -139,7 +143,7 @@ func createSymlink(file string, size int64, db *sql.DB) bool {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			fmt.Printf("[WARN] No file found in database for: %v\n", file)
-			return false
+			return linked
 		} else {
 			log.Fatalf("[ERROR] Failed to execute query. %v\n", err)
 		}
@@ -150,6 +154,7 @@ func createSymlink(file string, size int64, db *sql.DB) bool {
 	if folder != nil {
 		os.Mkdir(folder[0], 0744)
 	}
+
 	os.Symlink(targetPath, file)
 	linked = true
 	return linked
@@ -158,6 +163,7 @@ func createSymlink(file string, size int64, db *sql.DB) bool {
 // Main function
 func main() {
 	// Loading configuration file
+	log.Println("[INFO] Loading configuration file...")
 	loadConfig := initConfig()
 	torrentFolder = loadConfig.General.Source
 	dataFolder = loadConfig.General.Data
@@ -172,6 +178,7 @@ func main() {
 	log.SetOutput(f)
 
 	// Opendatabase
+	log.Println("[INFO] Opening database ./files.db")
 	db, err := sql.Open("sqlite3", "./files.db")
 	if err != nil {
 		log.Fatal(err)
@@ -180,6 +187,7 @@ func main() {
 
 	// Update files database
 	if updateDatabaseOnStart == "true" {
+		log.Println("[INFO] Starting database update")
 		directoriesToScan := dataFolder
 		filescanner.ScanDirectories(directoriesToScan[:], "./files.db")
 	}
