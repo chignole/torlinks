@@ -1,0 +1,91 @@
+2024/06/17 21:18:37 [ERROR] Error processing configuration file : json: cannot unmarshal string into Go struct field general.general.updatedatabaseonstart of type bool
+2024/06/19 21:44:33 [INFO] Processing: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:44:33 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:44:33 sql: no rows in result set
+2024/06/19 21:44:37 [INFO] Processing: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:44:37 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:44:37 sql: no rows in result set
+2024/06/19 21:44:51 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:44:51 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/02 Houdini.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/03 Training Season.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/04 These Walls.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/05 Whatcha Doing.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/06 French Exit.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/07 Illusion.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/08 Falling Forever.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/09 Anything for Love.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/10 Maria.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/11 Happy for You.flac
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Folder.jpg
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Radical Optimism.cue
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Radical Optimism.log
+2024/06/19 21:45:26 sql: no rows in result set
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:45:26 <nil>
+2024/06/19 21:47:09 [INFO] Processing : Dua Lipa - Radical Optimism - 2024 (CD - FLAC - Lossless)-4858396.torrent
+2024/06/19 21:47:09 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:47:09 sql: no rows in result set
+2024/06/19 21:49:22 [INFO] Processing : Dua Lipa - Radical Optimism - 2024 (CD - FLAC - Lossless)-4858396.torrent
+2024/06/19 21:49:22 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:49:22 [ERROR] Failed to execute query. sql: no rows in result set
+2024/06/19 21:49:34 [INFO] Processing : Dua Lipa - Radical Optimism - 2024 (CD - FLAC - Lossless)-4858396.torrent
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/02 Houdini.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/03 Training Season.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/04 These Walls.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/05 Whatcha Doing.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/06 French Exit.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/07 Illusion.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/08 Falling Forever.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/09 Anything for Love.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/10 Maria.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/11 Happy for You.flac
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Folder.jpg
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Radical Optimism.cue
+2024/06/19 21:49:34 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Radical Optimism.log
+2024/06/19 21:49:34 [INFO] Processing : [MoreThanTV]Black.Bird.S01.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:49:34 [INFO] Processing : [MoreThanTV]Sugar.2024.S01E01.Olivia.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:50:00 [INFO] Processing : [MoreThanTV]Black.Bird.S01.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:50:00 [ERROR] Failed to execute query. <nil>
+2024/06/19 21:50:27 [INFO] Processing : [MoreThanTV]Black.Bird.S01.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:50:27 [INFO] Processing : [MoreThanTV]Sugar.2024.S01E01.Olivia.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:50:46 [INFO] Processing : [MoreThanTV]Black.Bird.S01.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:50:46 [INFO] Processing : [MoreThanTV]Sugar.2024.S01E01.Olivia.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/01 End of an Era.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/02 Houdini.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/03 Training Season.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/04 These Walls.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/05 Whatcha Doing.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/06 French Exit.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/07 Illusion.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/08 Falling Forever.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/09 Anything for Love.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/10 Maria.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/11 Happy for You.flac
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Folder.jpg
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Radical Optimism.cue
+2024/06/19 21:57:35 [WARN] No file found in database for: Dua Lipa - Radical Optimism (2024) {5054197943478} [CD-FLAC]/Radical Optimism.log
+2024/06/19 22:00:14 [ERROR] Failed to execute query. sql: no rows in result set
+2024/06/19 22:01:20 [ERROR] Failed to execute query. sql: no rows in result set
+2024/06/21 08:37:10 Error cleaning up database: database is locked
+2024/06/22 07:29:51 [INFO] Moving [MoreThanTV]Black.Bird.S01.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb.torrent to ./torrents/
