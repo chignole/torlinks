@@ -2,16 +2,17 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
 	"io/fs"
-	"io/ioutil"
+	// "io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"regexp"
 
 	// "chignole/torlinks/internal/database"
+	"chignole/torlinks/internal/config"
 	"chignole/torlinks/internal/filescanner"
 
 	"github.com/j-muller/go-torrent-parser"
@@ -51,27 +52,27 @@ type general struct {
 var loadConfig configuration
 
 // Processing configuration file
-func initConfig() configuration {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		log.Panic(err)
-	}
-	file := homeDir + "/.config/torlinks/config.json"
-	configFile, err := os.Open(file)
-	if err != nil {
-		log.Fatalf("[ERROR] Error opening configuration file : %v", err)
-	}
-	defer configFile.Close()
-	config, err := ioutil.ReadAll(configFile)
-	if err != nil {
-		log.Panicf("[ERROR] Error processing configuration file : %v", err)
-	}
-	err = json.Unmarshal(config, &loadConfig)
-	if err != nil {
-		log.Panicf("[ERROR] Error processing configuration file : %v", err)
-	}
-	return loadConfig
-}
+// func initConfig() configuration {
+// 	homeDir, err := os.UserHomeDir()
+// 	if err != nil {
+// 		log.Panic(err)
+// 	}
+// 	file := homeDir + "/.config/torlinks/config.json"
+// 	configFile, err := os.Open(file)
+// 	if err != nil {
+// 		log.Fatalf("[ERROR] Error opening configuration file : %v", err)
+// 	}
+// 	defer configFile.Close()
+// 	config, err := ioutil.ReadAll(configFile)
+// 	if err != nil {
+// 		log.Panicf("[ERROR] Error processing configuration file : %v", err)
+// 	}
+// 	err = json.Unmarshal(config, &loadConfig)
+// 	if err != nil {
+// 		log.Panicf("[ERROR] Error processing configuration file : %v", err)
+// 	}
+// 	return loadConfig
+// }
 
 // Search for specific file extension in a directory - Returning an array of torrent constructs
 func find(root, ext string) []torrent {
@@ -163,8 +164,7 @@ func createSymlink(file string, size int64, db *sql.DB) bool {
 // Main function
 func main() {
 	// Loading configuration file
-	log.Println("[INFO] Loading configuration file...")
-	loadConfig := initConfig()
+	loadConfig := config.InitConfig()
 	torrentFolder = loadConfig.General.Source
 	dataFolder = loadConfig.General.Data
 	updateDatabaseOnStart = loadConfig.General.UpdateDatabaseOnStart
