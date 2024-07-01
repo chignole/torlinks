@@ -20,13 +20,18 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "torlinks",
 	Short: "A program that creates symlinks to torrent files content to facilitate continued sharing.",
-	Long: `This program generates virtual links to the content of torrent files, enabling users to continue
-  sharing these files seamlessly. By creating these links, the program allows for the efficient distribution and access
-  of shared files without the need for re-downloading or manually managing the original torrent files. This helps
-  maintain the availability and integrity of shared content across multiple users and platforms.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Long: `
+ ______  ____    ___    __    ____   _  __   __ __   ____
+/_  __/ / __ \  / _ \  / /   /  _/  / |/ /  / //_/  / __/
+ / /   / /_/ / / , _/ / /__ _/ /   /    /  / ,<    _\ \  
+/_/    \____/ /_/|_| /____//___/  /_/|_/  /_/|_|  /___/  
+                                                         
+
+This program generates virtual links to the content of torrent files, enabling users to continue
+sharing these files seamlessly. By creating these links, the program allows for the efficient 
+distribution and access of shared files without the need for re-downloading or manually managing 
+the original torrent files. This helps maintain the availability and integrity of shared content 
+across multiple users and platforms.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
