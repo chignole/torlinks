@@ -5,15 +5,11 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"os"
-	"path/filepath"
-	// "chignole/torlinks/internal/config"
-	// "fmt"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-
-	// "github.com/spf13/viper"
 	"log"
+	"os"
+	"path/filepath"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -52,6 +48,7 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
+
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringP("config", "c", "", "config file (default is $HOME/.config/torlinks/config.yaml")
 }
