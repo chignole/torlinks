@@ -21,9 +21,12 @@ var inboxCmd = &cobra.Command{
 		source := viper.GetString("general.source")
 
 		totalSize := getTotalSize(source)
-		log.Printf("[STATS] Total files size : %dGb\n", totalSize)
+		totalFailedFiles := getFailedFiles(source)
+		totalInboxFiles := getInboxFiles(source)
 
-		getBiggestFiles(source)
+		log.Printf("[STATS] Total files size....: %dGb\n", totalSize)
+		log.Printf("[STATS] Total failed files..: %d\n", totalFailedFiles)
+		log.Printf("[STATS] Total inbox files...: %d\n", totalInboxFiles)
 	},
 }
 
@@ -42,6 +45,18 @@ func getTotalSize(source string) int64 {
 	}
 	totalSize = totalSize / 1073741824
 	return totalSize
+}
+
+func getInboxFiles(source string) int64 {
+	inboxFiles := files.Find(source, ".torrent")
+	totalInboxFiles := len(inboxFiles)
+	return int64(totalInboxFiles)
+}
+
+func getFailedFiles(source string) int64 {
+	failedFiles := files.Find(source, ".delete")
+	totalFailedFiles := len(failedFiles)
+	return int64(totalFailedFiles)
 }
 
 func getBiggestFiles(source string) []string {
