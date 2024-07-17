@@ -1,3 +1,4 @@
+```bash
 This program generates virtual links to the content of torrent files, enabling users to continue
 sharing these files seamlessly. By creating these links, the program allows for the efficient 
 distribution and access of shared files without the need for re-downloading or manually managing 
@@ -26,3 +27,4 @@ Flags:
   -h, --help            help for torlinks
 
 Use "torlinks [command] --help" for more information about a command.
+```
