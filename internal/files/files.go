@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/j-muller/go-torrent-parser"
 	"github.com/spf13/viper"
@@ -18,6 +19,14 @@ type torrent struct {
 type file struct {
 	Path string
 	Size int64
+}
+
+type torrentDetails struct {
+	Announce  []string
+	Comment   string
+	CreatedAt time.Time
+	CreatedBy string
+	Hash      string
 }
 
 // Search for specific file extension in a directory - Returning an array of torrent constructs
@@ -42,7 +51,6 @@ func Find(root, ext string) []torrent {
 // Parse a torrent - Returns an array of file structs
 func Parse(torrent string) []file {
 	var parsedFiles []file
-	// TODO Modify regex so it can accept sXXeXX or SXXEXX
 	a, err := gotorrentparser.ParseFromFile(torrent)
 	if err != nil {
 		log.Fatalf("[ERROR] Error while parsing torrent : %v", err)
@@ -55,6 +63,23 @@ func Parse(torrent string) []file {
 		}
 	}
 	return parsedFiles
+}
+
+// Parse a torrent and return some useful informations
+func ParseDetails(torrent string) torrentDetails {
+	var parsedDetails torrentDetails
+	a, err := gotorrentparser.ParseFromFile(torrent)
+	if err != nil {
+		log.Fatalf("[ERROR] Error while parsing torrent : %v", err)
+	}
+	announce := a.Announce
+	comment := a.Comment
+	createdAt := a.CreatedAt
+	createdBy := a.CreatedBy
+	hash := a.InfoHash
+
+	parsedDetails = torrentDetails{announce, comment, createdAt, createdBy, hash}
+	return parsedDetails
 }
 
 func Clean(t torrent) {
