@@ -87,12 +87,12 @@ var dryRunCmd = &cobra.Command{
 		// Display stats table
 		t := table.NewWriter()
 		t.SetOutputMirror(os.Stdout)
-		t.AppendHeader(table.Row{"#", "Filename", "Size1", "Size2", "%", "Present1", "Present2", "Main File"})
+		t.AppendHeader(table.Row{"#", "Filename", "Exp. Size", "Mat. Size", "%", "Exp. Files", "Mat. Size", "Main File"})
 		for i, stats := range torrentsStats {
 			t.AppendRow([]interface{}{i + 1, stats.fileName, stats.presentSize, stats.totalSize, stats.percentSize, stats.presentFiles, stats.totalFiles, stats.biggestFile})
 			t.AppendSeparator()
 		}
-		t.SetStyle(table.StyleColoredRedWhiteOnBlack)
+		t.SetStyle(table.StyleColoredYellowWhiteOnBlack)
 		t.Style().Options.SeparateRows = true
 		t.Render()
 

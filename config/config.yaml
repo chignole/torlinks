@@ -1,8 +1,10 @@
 general:
-  source: "/home/raoul/go/torlinks/tmp/inbox"
-  destination: "/home/raoul/go/torlinks/tmp/torrents/"
-  database: "/home/raoul/.config/torlinks/files.db"
+  source: 
+  destination:
+  database:
   data:
-    - /mnt/medias.2/Movies
-    - /mnt/medias.1/Series
-    - /mnt/medias.2/XXX_bis
+    - 
+
+metrics: 
+  file:
+  ping:

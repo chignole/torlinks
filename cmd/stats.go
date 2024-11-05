@@ -1,11 +1,11 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"chignole/torlinks/internal/files"
+	"chignole/torlinks/internal/utils"
 	"log"
 	"os"
 
@@ -13,34 +13,28 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/common/expfmt" //Careful - v0.48 introduces some breaking changes
+	"github.com/prometheus/common/expfmt" // Careful - v0.48 introduces some breaking changes
 )
 
-var (
-	inboxFiles = prometheus.NewGauge(
-		prometheus.GaugeOpts{
-			Name: "torlinksInboxFiles",
-			Help: "Torrents currently in Torlinks inbox folder",
-		},
-	)
+var inboxFiles = prometheus.NewGauge(
+	prometheus.GaugeOpts{
+		Name: "torlinksInboxFiles",
+		Help: "Torrents currently in Torlinks inbox folder",
+	},
 )
 
-var (
-	failedFiles = prometheus.NewGauge(
-		prometheus.GaugeOpts{
-			Name: "torlinksFailedFiles",
-			Help: "Failed torrents currently in Torlinks inbox folder",
-		},
-	)
+var failedFiles = prometheus.NewGauge(
+	prometheus.GaugeOpts{
+		Name: "torlinksFailedFiles",
+		Help: "Failed torrents currently in Torlinks inbox folder",
+	},
 )
 
-var (
-	inboxSize = prometheus.NewGauge(
-		prometheus.GaugeOpts{
-			Name: "torlinksInboxSize",
-			Help: "Size of files currently in inbox folder",
-		},
-	)
+var inboxSize = prometheus.NewGauge(
+	prometheus.GaugeOpts{
+		Name: "torlinksInboxSize",
+		Help: "Size of files currently in inbox folder",
+	},
 )
 
 // statsCmd represents the inbox command
@@ -50,7 +44,8 @@ var statsCmd = &cobra.Command{
 	Long:  `Provides some useful stats about your inbox folder.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		source := viper.GetString("general.source")
-		metricsFile := viper.GetString("general.metrics")
+		metricsFile := viper.GetString("metrics.file")
+		metricsPing := viper.GetString("metrics.ping")
 
 		// Creating new Prometheus registry
 		reg := prometheus.NewRegistry()
@@ -88,6 +83,11 @@ var statsCmd = &cobra.Command{
 		}
 
 		log.Println("[INFO] Metrics file saved at:", metricsFile)
+
+		// Sending ping to healtcheck URL
+		if metricsPing != "" {
+			utils.PingHealthCheck(metricsPing)
+		}
 
 		// log.Printf("[STATS] Total files size....: %dGb\n", )
 		// log.Printf("[STATS] Total failed files..: %d\n", totalFailedFiles)
