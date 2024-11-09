@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/j-muller/go-torrent-parser"
+	gotorrentparser "github.com/j-muller/go-torrent-parser"
 	"github.com/spf13/viper"
 )
 
@@ -83,11 +83,11 @@ func ParseDetails(torrent string) torrentDetails {
 }
 
 func Clean(t torrent) {
-	destination := viper.GetString("general.destination")
+	torrentsWatchDir := viper.GetString("general.torrentsWatchDir")
 	if t.Linked == true {
 		fileName := filepath.Base(t.File)
-		n := destination + fileName
-		log.Println("[INFO] Moving", fileName, "to", destination)
+		n := torrentsWatchDir + fileName
+		log.Println("[INFO] Moving", fileName, "to", torrentsWatchDir)
 		defer os.Rename(t.File, n)
 	} else {
 		n := t.File + ".delete"

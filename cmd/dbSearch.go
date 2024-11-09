@@ -1,6 +1,5 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -26,7 +25,7 @@ var dbSearchCmd = &cobra.Command{
 			cmd.Usage()
 			os.Exit(1)
 		}
-		dataBaseFile := viper.GetString("general.database")
+		dataBaseFile := viper.GetString("database.file")
 		db, err := database.OpenDatabase(dataBaseFile)
 		if err != nil {
 			log.Printf("[ERROR] Error opening database : %v", err)

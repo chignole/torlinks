@@ -1,11 +1,11 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"chignole/torlinks/internal/filescanner"
+	"chignole/torlinks/internal/utils"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -20,10 +20,15 @@ var dbUpdate = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		log.Println("[INFO] Database update started")
 		dataDirectories := viper.GetStringSlice("general.data")
-		database := viper.GetString("general.database")
+		database := viper.GetString("database.file")
+		dbUpdatePing := viper.GetString("database.ping")
 		log.Println(database)
 		filescanner.ScanDirectories(dataDirectories[:], database)
 
+		// Sending ping to healthcheck URL
+		if dbUpdatePing != "" {
+			utils.PingHealthCheck(dbUpdatePing)
+		}
 	},
 }
 

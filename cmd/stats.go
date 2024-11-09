@@ -43,7 +43,7 @@ var statsCmd = &cobra.Command{
 	Short: "Provides some useful stats about your inbox folder.",
 	Long:  `Provides some useful stats about your inbox folder.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		source := viper.GetString("general.source")
+		source := viper.GetString("general.torrentsInbox")
 		metricsFile := viper.GetString("metrics.file")
 		metricsPing := viper.GetString("metrics.ping")
 

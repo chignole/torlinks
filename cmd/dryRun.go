@@ -1,6 +1,5 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -29,16 +28,18 @@ type torrentStats struct {
 	biggestFile  string
 }
 
-var torrentsStats []torrentStats
-var completeSizeThresold float64
+var (
+	torrentsStats        []torrentStats
+	completeSizeThresold float64
+)
 
 // dryRunCmd represents the dryRun command
 var dryRunCmd = &cobra.Command{
 	Use:   "dryRun",
 	Short: "Similar to the Run command, but dry.",
 	Run: func(cmd *cobra.Command, args []string) {
-		source := viper.GetString("general.source")
-		dbFile := viper.GetString("general.database")
+		source := viper.GetString("general.torrentsInbox")
+		dbFile := viper.GetString("database.file")
 
 		// Open database
 		db, err := sql.Open("sqlite3", dbFile)
@@ -62,7 +63,7 @@ var dryRunCmd = &cobra.Command{
 
 			for f := range filesInTorrent {
 				var exists int
-				var biggestFileSize int = 0
+				biggestFileSize := 0
 
 				currentTorrent.totalFiles = currentTorrent.totalFiles + 1
 				currentTorrent.totalSize = currentTorrent.totalSize + filesInTorrent[f].Size
@@ -95,7 +96,6 @@ var dryRunCmd = &cobra.Command{
 		t.SetStyle(table.StyleColoredYellowWhiteOnBlack)
 		t.Style().Options.SeparateRows = true
 		t.Render()
-
 	},
 }
 

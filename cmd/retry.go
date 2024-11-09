@@ -1,6 +1,5 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -18,7 +17,7 @@ var retryCmd = &cobra.Command{
 	Long: `Allow to reprocess failed torrent files by removing the .delete extension
   of those files in inbox folder.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		source := viper.GetString("general.source")
+		source := viper.GetString("general.torrentsInbox")
 		symlink.Retry(source)
 	},
 }

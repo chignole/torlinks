@@ -1,15 +1,13 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
-	"database/sql"
-	"log"
-
 	"chignole/torlinks/internal/files"
 	"chignole/torlinks/internal/symlink"
+	"database/sql"
+	"log"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -21,8 +19,8 @@ var linkCmd = &cobra.Command{
 	Short: "Search for torrent files and create symlinks to their data.",
 	Long:  `Search for torrent files and create symlinks to their data.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		dbFile := viper.GetString("general.database")
-		source := viper.GetString("general.source")
+		dbFile := viper.GetString("database.file")
+		source := viper.GetString("general.torrentsInbox")
 
 		// Open database
 		db, err := sql.Open("sqlite3", dbFile)
@@ -40,7 +38,7 @@ var linkCmd = &cobra.Command{
 			filesToProcess := files.Parse(torrents[t].File)
 			for _, f := range filesToProcess {
 				linked := symlink.Create(f.Path, f.Size, db)
-				if linked == true {
+				if linked {
 					torrents[t].Linked = true
 				}
 			}
