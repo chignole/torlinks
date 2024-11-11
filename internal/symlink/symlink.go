@@ -12,17 +12,30 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Create(file string, size int64, db *sql.DB) bool {
+func Create(file string, size int64, db *sql.DB) string {
 	var targetPath string
 	var targetSize int64
 
-	linked := false
+	torrentStatus := "unset"
 	minSize := viper.GetInt64("options.minimalSize")
 	symlinkDir := viper.GetString("general.symlinkDir")
 
 	// Check file size and skip it if needed. Useful to ignore .nfo, .sfv, etc...
 	if size < minSize {
-		log.Printf("[INFO] Skipping file %v.", file)
+		log.Printf("[INFO] Skipping file %v", file)
+		return torrentStatus
+	}
+
+	// Count size matches - If it's more than 1, mark the torrent and skip it
+	var count int
+	err := db.QueryRow("SELECT COUNT (*) FROM files where size=?", size).Scan(&count)
+	if err != nil {
+		log.Fatalf("[ERROR] Failed to count the number of matchs %v\n", err)
+	}
+
+	if count > 1 {
+		torrentStatus = "multi"
+		return torrentStatus
 	}
 
 	// Prepare query
@@ -37,11 +50,21 @@ func Create(file string, size int64, db *sql.DB) bool {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			log.Printf("[WARN] No file found in database for: %v\n", file)
-			return linked
+			return torrentStatus
 		} else {
 			log.Fatalf("[ERROR] Failed to execute query. %v\n", err)
 		}
 	}
+
+	// rows, err := stmt.Query(size)
+	// for rows.Next() {
+	// 	err := rows.Scan(&targetPath, &targetSize)
+	// 	if err != nil {
+	// 		log.Fatalf("[ERROR] Failed to scan row. %v\n", err)
+	// 	}
+	// 	log.Println(targetPath)
+	// }
+
 	// Check for subfolder - Creates it if needed
 	checkFolder := regexp.MustCompile(`.*\/`)
 	folder := checkFolder.FindStringSubmatch(file)
@@ -53,8 +76,8 @@ func Create(file string, size int64, db *sql.DB) bool {
 	// Creates symlink
 	file = filepath.Join(symlinkDir, file)
 	os.Symlink(targetPath, file)
-	linked = true
-	return linked
+	torrentStatus = "linked"
+	return torrentStatus
 }
 
 func Retry(source string) {

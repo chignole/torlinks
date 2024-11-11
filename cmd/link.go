@@ -36,10 +36,17 @@ var linkCmd = &cobra.Command{
 		for t := range torrents {
 			log.Printf("[INFO] Processing : %v\n", torrents[t].File)
 			filesToProcess := files.Parse(torrents[t].File)
+		processLoop:
 			for _, f := range filesToProcess {
-				linked := symlink.Create(f.Path, f.Size, db)
-				if linked {
-					torrents[t].Linked = true
+				torrentStatus := symlink.Create(f.Path, f.Size, db)
+				switch torrentStatus {
+				case "linked":
+					torrents[t].Status = "linked"
+				case "multi":
+					torrents[t].Status = "multi"
+					break processLoop
+				default:
+					torrents[t].Status = "unset"
 				}
 			}
 		}

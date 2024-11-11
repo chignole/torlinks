@@ -13,7 +13,7 @@ import (
 
 type torrent struct {
 	File   string
-	Linked bool
+	Status string
 }
 
 type file struct {
@@ -40,7 +40,7 @@ func Find(root, ext string) []torrent {
 			return filepath.SkipDir
 		}
 		if filepath.Ext(d.Name()) == ext {
-			t := torrent{s, false}
+			t := torrent{s, "unset"}
 			a = append(a, t)
 		}
 		return nil
@@ -84,10 +84,13 @@ func ParseDetails(torrent string) torrentDetails {
 
 func Clean(t torrent) {
 	torrentsWatchDir := viper.GetString("general.torrentsWatchDir")
-	if t.Linked == true {
+	if t.Status == "linked" {
 		fileName := filepath.Base(t.File)
 		n := torrentsWatchDir + fileName
 		log.Println("[INFO] Moving", fileName, "to", torrentsWatchDir)
+		defer os.Rename(t.File, n)
+	} else if t.Status == "multi" {
+		n := t.File + ".multi"
 		defer os.Rename(t.File, n)
 	} else {
 		n := t.File + ".delete"

@@ -30,6 +30,13 @@ var failedFiles = prometheus.NewGauge(
 	},
 )
 
+var multiFiles = prometheus.NewGauge(
+	prometheus.GaugeOpts{
+		Name: "torlinksMultiFiles",
+		Help: "Torrent files getting multiple matches and requiring manual treatment",
+	},
+)
+
 var inboxSize = prometheus.NewGauge(
 	prometheus.GaugeOpts{
 		Name: "torlinksInboxSize",
@@ -52,10 +59,12 @@ var statsCmd = &cobra.Command{
 		reg.MustRegister(inboxFiles)
 		reg.MustRegister(failedFiles)
 		reg.MustRegister(inboxSize)
+		reg.MustRegister(multiFiles)
 
 		inboxFiles.Set(float64(getInboxFiles(source)))
 		inboxSize.Set(float64(getTotalSize(source)))
 		failedFiles.Set(float64(getFailedFiles(source)))
+		multiFiles.Set(float64(getMultiFiles(source)))
 
 		// Collecting data
 		mfs, err := reg.Gather()
@@ -122,6 +131,12 @@ func getFailedFiles(source string) int64 {
 	failedFiles := files.Find(source, ".delete")
 	totalFailedFiles := len(failedFiles)
 	return int64(totalFailedFiles)
+}
+
+func getMultiFiles(source string) int64 {
+	multiFiles := files.Find(source, ".multi")
+	totalMultiFiles := len(multiFiles)
+	return int64(totalMultiFiles)
 }
 
 func getBiggestFiles(source string) []string {
