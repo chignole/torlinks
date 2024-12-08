@@ -22,6 +22,7 @@ type file struct {
 }
 
 type torrentDetails struct {
+	File      string
 	Announce  []string
 	Comment   string
 	CreatedAt time.Time
@@ -72,13 +73,14 @@ func ParseDetails(torrent string) torrentDetails {
 	if err != nil {
 		log.Fatalf("[ERROR] Error while parsing torrent : %v", err)
 	}
+	file := torrent
 	announce := a.Announce
 	comment := a.Comment
 	createdAt := a.CreatedAt
 	createdBy := a.CreatedBy
 	hash := a.InfoHash
 
-	parsedDetails = torrentDetails{announce, comment, createdAt, createdBy, hash}
+	parsedDetails = torrentDetails{file, announce, comment, createdAt, createdBy, hash}
 	return parsedDetails
 }
 

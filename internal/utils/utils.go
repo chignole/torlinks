@@ -2,6 +2,7 @@ package utils
 
 import (
 	"log"
+	"math"
 	"net/http"
 	"time"
 )
@@ -23,4 +24,9 @@ func PingHealthCheck(url string) {
 		log.Println("[ERROR] Error sending ping:", err)
 	}
 	resp.Body.Close()
+}
+
+func CalculatePercentage(a float64, b float64) float64 {
+	p := math.Floor((a/b*100)*100) / 100
+	return p
 }
