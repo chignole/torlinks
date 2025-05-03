@@ -1,6 +1,3 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -47,7 +44,7 @@ var seededCmd = &cobra.Command{
 			seededTorrentsHashes = append(seededTorrentsHashes, *torrent.HashString)
 		}
 
-		// Browser torrent folder looking for every added torrent, check if present in hashes slices
+		// Browse torrent folder looking for every added torrent, check if present in hashes slices
 		// if not, then it's not actually seeded
 		torrentfiles := files.Find(torrentsWatchDir, ".added")
 		for _, torrent := range torrentfiles {

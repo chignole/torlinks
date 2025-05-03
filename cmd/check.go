@@ -1,17 +1,13 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
+	"chignole/torlinks/internal/files"
 	"log"
 	"os"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	// "github.com/jedib0t/go-pretty/v6/text"
 
-	"chignole/torlinks/internal/files"
 	"github.com/spf13/cobra"
 )
 
@@ -42,7 +38,6 @@ var checkCmd = &cobra.Command{
 		t.Style().Options.SeparateRows = true
 
 		t.Render()
-
 	},
 }
 

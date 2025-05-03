@@ -1,40 +1,34 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
-	"fmt"
+	"chignole/torlinks/internal/filescanner"
+	"chignole/torlinks/internal/utils"
+	"log"
+	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // dbCleanCmd represents the dbClean command
 var dbCleanCmd = &cobra.Command{
 	Use:   "dbClean",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Rebuild files database.",
+	Long:  `Rebuild files database`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("dbClean called")
+		log.Println("[INFO] Database cleaning started")
+		dataDirectories := viper.GetStringSlice("general.data")
+		database := viper.GetString("database.file")
+		dbUpdatePing := viper.GetString("database.ping")
+		os.Remove(database)
+		filescanner.ScanDirectories(dataDirectories[:], database)
+
+		if dbUpdatePing != "" {
+			utils.PingHealthCheck(dbUpdatePing)
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(dbCleanCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// dbCleanCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// dbCleanCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
