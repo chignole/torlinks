@@ -23,9 +23,8 @@ Available Commands:
   version     Displays build version.
 
 Flags:
-  -c, --config string   config file (default is $HOME/.config/torlinks/config.yaml
+  -c, --config string   config file (default is $HOME/.config/torlinks/config.yaml)
   -h, --help            help for torlinks
 
 Use "torlinks [command] --help" for more information about a command.
 ```
-Ceci est un test
