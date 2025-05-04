@@ -58,10 +58,35 @@ func createConfig() {
 // Default configuration file
 var defaultConfig string = `
 general:
-  source: "/home/user/go/torlinks/tmp/inbox"
-  destination: "/home/user/go/torlinks/tmp/torrents/"
-  database: "/home/user/.config/torlinks/files.db"
+  torrentsInbox: ""
+  torrentsWatchDir: ""
+  symlinkDir : ""
   data:
-    - /mnt/movies
-    - /mnt/tv
+    - 
+    -
+    -
+
+options:
+  # Minimal size of kb size to process 
+  minimalSize: 2000000
+
+  # Ratio (%) of successful matches needed to consider a torrent seedable
+  minimalMatch: 95
+
+  # Default value for the processMultipleMatches flag
+  # If set to true, will prompt user for match disambiguation
+  processMultipleMatches: false
+
+database:
+  file: ""
+  ping: ""
+
+metrics: 
+  file: ""
+  ping: ""
+
+transmission:
+  server: ""
+  user: ""
+  password: ""
 `

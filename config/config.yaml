@@ -1,11 +1,32 @@
-# TODO update config default file
 general:
-  source: 
-  destination:
-  database:
+  torrentsInbox: ""
+  torrentsWatchDir: ""
+  symlinkDir : ""
   data:
     - 
+    -
+    -
+
+options:
+  # Minimal size of kb size to process 
+  minimalSize: 2000000
+
+  # Ratio (%) of successful matches needed to consider a torrent seedable
+  minimalMatch: 95
+
+  # Default value for the processMultipleMatches flag
+  # If set to true, will prompt user for match disambiguation
+  processMultipleMatches: false
+
+database:
+  file: ""
+  ping: ""
 
 metrics: 
-  file:
-  ping:
+  file: ""
+  ping: ""
+
+transmission:
+  server: ""
+  user: ""
+  password: ""

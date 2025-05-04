@@ -27,8 +27,8 @@ var processMultipleMatches bool
 // runCmd represents the run command
 var runCmd = &cobra.Command{
 	Use:   "run",
-	Short: "Manual processing of torrents matching multiple files",
-	Long:  "Manual processing of torrents matching multiple files",
+	Short: "Process torrents, creating symlinks to the matching data",
+	Long:  "Process torrents, creating symlinks to the matching data",
 	Run: func(cmd *cobra.Command, args []string) {
 		dbFile := viper.GetString("database.file")
 		torrentsInbox := viper.GetString("general.torrentsInbox")
